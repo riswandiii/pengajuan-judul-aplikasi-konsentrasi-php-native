@@ -18,7 +18,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Data Judul</title>
+    <title>Data Judul Ulang</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
   </head>
   <body class="bg-light">
@@ -28,7 +28,7 @@
         <br><br>
       <div class="row py-3 text-center">
           <div class="col-lg-12">
-                <h3>Data Judul Mahasiswa</h3>
+                <h3>Data Judul Ulang Mahasiswa</h3>
           </div>
       </div>
 
@@ -39,7 +39,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Judul</th>
+                                <th>Judul Ulang</th>
                                 <th>Mahasiswa</th>
                                 <th>Stb</th>
                                 <th>Kelas</th>
@@ -51,8 +51,8 @@
                         </thead>
                         <tbody>
                         <?php 
-							$judul = mysqli_query($conn, "SELECT * FROM tb_judul
-                            LEFT JOIN tb_mahasiswa ON tb_judul.id_mahasiswa = tb_mahasiswa.id_mahasiswa
+							$judul = mysqli_query($conn, "SELECT * FROM tb_pengajuan_ulang
+                            LEFT JOIN tb_mahasiswa ON tb_pengajuan_ulang.id_mahasiswa = tb_mahasiswa.id_mahasiswa
                             ");
                             $no = 1;
 							if(mysqli_num_rows($judul) > 0){
@@ -60,12 +60,12 @@
 				            ?>
                             <tr>
                                 <td><?php echo $no++ ?></td>
-                                <td><?php echo $jud['judul'] ?></td>
+                                <td><?php echo $jud['judul_ulang'] ?></td>
                                 <td><?php echo $jud['username'] ?></td>
                                 <td><?php echo $jud['stb'] ?></td>
                                 <td><?php echo $dos['kode_kelas'] ?></td>
-                                <td><?php echo $jud['deskripsi_judul'] ?></td>
-                                <td><?php echo $jud['tanggal_pengajuan'] ?></td>
+                                <td><?php echo $jud['deskripsi_judul_ulang'] ?></td>
+                                <td><?php echo $jud['tanggal_pengajuan_ulang'] ?></td>
                                 <?php if($jud['status'] == '0') {?>
                                 <th>Belom Di Acc</th>
                                 <?php }elseif($jud['status'] == '1') { ?>
@@ -78,9 +78,9 @@
 
                                 <?php if($jud['status'] == '0') { ?>
                                 <th>
-                                <a href="acc_judul.php?id_judul=<?php echo $jud['id_judul'] ?>" class="btn btn-primary btn-sm" onclick="return confirm('Yakin ingin acc judul mahasiswa?')">Acc</a>
-                                <a href="revisi_judul.php?id_judul=<?php echo $jud['id_judul'] ?>" class="btn btn-success btn-sm" onclick="return confirm('Yakin ingin revisi judul mahasiswa?')">Revisi</a>
-                                <a href="tolak_judul.php?id_judul=<?php echo $jud['id_judul'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin toalk judul mahasiswa?')">Tolak</a>
+                                <a href="acc_judul_ulang.php?id_pengajuan_ulang=<?php echo $jud['id_pengajuan_ulang'] ?>" class="btn btn-primary btn-sm" onclick="return confirm('Yakin ingin acc judul abru mahasiswa?')">Acc</a>
+                                <a href="revisi_judul_ulang.php?id_pengajuan_ulang=<?php echo $jud['id_pengajuan_ulang'] ?>" class="btn btn-success btn-sm" onclick="return confirm('Yakin ingin revisi judul baru mahasiswa?')">Revisi</a>
+                                <a href="tolak_judul_ulang.php?id_pengajuan_ulang=<?php echo $jud['id_pengajuan_ulang'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin tolak judul baru mahasiswa?')">Tolak</a>
                                 </th>
                                 <?php }else{ ?>
                                     <?php if($jud['status'] == '0') {?>

@@ -1,3 +1,11 @@
+<?php
+	session_start();
+    include 'koneksi.php';
+	  if($_SESSION['status_mahasiswa'] != true){
+		echo '<script>window.location="login_mahasiswa.php"</script>';
+	}
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -47,10 +55,16 @@
           <a class="nav-link" href="data_judul.php">Data Judul</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="data_judul_ulang.php">Data Judul Ulang</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="data_revisi.php">Data Revisi</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="pengajuan_ulang.php">Pengajuan Ulang</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link">|| Log out</a>
+          <a class="nav-link" href="logout.php">|| Log out</a>
         </li>
       </ul>
     </div>

@@ -1,3 +1,34 @@
+<?php
+session_start();
+include 'koneksi.php';
+
+// Jika sudah Login mahasiswa
+if(isset($_SESSION['login'])){
+    echo '<script>window.location="dashboard_mahasiswa.php"</script>';
+}
+
+ // Prose login Mahaiswa
+ if(isset($_POST['submit'])){
+
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+
+    $cek = mysqli_query($conn, "SELECT * FROM tb_mahasiswa WHERE username = '".$username."' AND password = '".$password."'");
+    if(mysqli_num_rows($cek) > 0){
+        $d = mysqli_fetch_object($cek);
+        $_SESSION['status_mahasiswa'] = true;
+        $_SESSION['a_global'] = $d;	
+        $_SESSION['id_mahasiswa'] = $d->id_mahasiswa;
+        $_SESSION['login'] = true;
+        echo '<script>window.location="dashboard_mahasiswa.php"</script>';
+    }else{
+        echo '<script>alert("Username atau password Anda salah!")</script>';
+    }
+}
+
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -28,7 +59,7 @@
                     <label for="username">Username</label>
                 </div>
                 <div class="form-floating mb-2">
-                    <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+                    <input type="number" class="form-control" id="password" placeholder="Password" name="password">
                     <label for="password">Password</label>
                 </div>
 
@@ -43,6 +74,7 @@
 
       <div class="row mt-3">
           <div class="col-lg-4 offset-lg-4">
+                <small class="d-block">Belom Registrasi? <a href="mahasiswa/registrasi.php" class="text-decoration-none"> Registrasi</a></small>
                 <small class="d-block">Login Admin <a href="login_admin.php" class="text-decoration-none"> Admin</a></small>
                 <small>Login Dosen <a href="login_dosen.php" class="text-decoration-none"> Dosen</a></small>
           </div>

@@ -20,15 +20,9 @@ include '../koneksi.php';
   <div class="container-fluid">
       <div class="container">
 
-      <div class="row py-3 text-center">
+      <div class="row py-3 text-center mb-3">
           <div class="col-lg-12">
                 <h3>Data Mahasiswa</h3>
-          </div>
-      </div>
-
-      <div class="row mb-3">
-          <div class="col-lg-12">
-              <a href="tambah_data.php" class="btn btn-primary btn-sm">+create Data Mahasiswa</a>
           </div>
       </div>
 
@@ -46,7 +40,6 @@ include '../koneksi.php';
                                 <th>Username</th>
                                 <th>Email</th>
                                 <th>Password</th>
-                                <th>action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -68,10 +61,6 @@ include '../koneksi.php';
 							<td><?php echo $row['username'] ?></td>
 							<td><?php echo $row['email'] ?></td>
 							<td><?php echo $row['password'] ?></td>
-                            <td>
-                                <a href="edit.php?id_mahasiswa=<?php echo $row['id_mahasiswa']?>" class="btn btn-primary btn-sm">Edit</a> ||
-                                <a href="hapus.php?id_mahasiswa=<?php echo $row['id_mahasiswa'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('YAKIN INGI HAPUS DATA MAHASISWA?')">Delete</a>
-                            </td>
                             
 						</tr>
 						<?php }}else{ ?>

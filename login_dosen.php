@@ -1,3 +1,34 @@
+<?php
+session_start();
+include 'koneksi.php';
+
+// Jika sudah Login dosen
+if(isset($_SESSION['login'])){
+    echo '<script>window.location="dashboard_dosen.php"</script>';
+}
+
+ // Prose login dosen
+ if(isset($_POST['submit'])){
+
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
+
+    $cek = mysqli_query($conn, "SELECT * FROM tb_dosen WHERE username = '".$username."' AND password = '".$password."'");
+    if(mysqli_num_rows($cek) > 0){
+        $d = mysqli_fetch_object($cek);
+        $_SESSION['status_dosen'] = true;
+        $_SESSION['a_global'] = $d;	
+        $_SESSION['id_dosen'] = $d->id_dosen;
+        $_SESSION['login'] = true;
+        echo '<script>window.location="dashboard_dosen.php"</script>';
+    }else{
+        echo '<script>alert("Username atau password Anda salah!")</script>';
+    }
+}
+
+
+?>
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -28,7 +59,7 @@
                     <label for="username">Username</label>
                 </div>
                 <div class="form-floating mb-2">
-                    <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+                    <input type="number" class="form-control" id="password" placeholder="Password" name="password">
                     <label for="password">Password</label>
                 </div>
 

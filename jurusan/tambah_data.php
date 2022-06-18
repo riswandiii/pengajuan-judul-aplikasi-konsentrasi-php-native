@@ -6,7 +6,7 @@
 					if(isset($_POST['submit'])){
 
 						// menampung inputan dari form
-						$jurusan 	= $_POST['jurusan'];
+						  $jurusan 	= $_POST['jurusan'];
 							$jurusan = mysqli_query($conn, "INSERT INTO tb_jurusan VALUES('', '$jurusan')");
 
 							if($jurusan){

@@ -1,3 +1,33 @@
+<?php
+	session_start();
+  include 'koneksi.php';
+  if($_SESSION['status_mahasiswa'] != true){
+  echo '<script>window.location="login_mahasiswa.php"</script>';
+}
+
+if(isset($_POST['submit'])){
+
+  // menampung inputan dari form
+    $id_revisi 	= $_POST['id_revisi'];
+    $id_mahasiswa 	= $_SESSION['id_mahasiswa'];
+    $judul_ulang 	= $_POST['judul_ulang'];
+    $deskripsi_judul_ulang 	= $_POST['deskripsi_judul_ulang'];
+    $tanggal_pengajuan_ulang 	= $_POST['tanggal_pengajuan_ulang'];
+    $status 	= $_POST['status'];
+    $judul_ulang = mysqli_query($conn, "INSERT INTO tb_pengajuan_ulang VALUES('', '$id_revisi', '$id_mahasiswa', '$judul_ulang', '$deskripsi_judul_ulang', '$tanggal_pengajuan_ulang', '$status')");
+
+    if($judul_ulang){
+      echo '<script>alert("Pengajuan judul ulang success!")</script>';
+      echo '<script>window.location="data_judul_ulang.php"</script>';
+    }else{
+      echo 'Gagal'.mysqli_error($conn);
+    }
+
+  }	
+
+?>
+
+
 <!doctype html>
 <html lang="en">
   <head>
@@ -21,7 +51,7 @@
                 <!-- Form Tambah Data Dosen -->
               <form action="" method="post">
                     <div class="mb-3">
-                        <input type="number" class="form-control" name="id_revisi" id="id_revisi" placeholder="Id Revisi">
+                        <input type="number" class="form-control" name="id_revisi" id="id_revisi" placeholder="Masukkan Id Revisi Judul Anda Yang Di Revisi!" required>
                     </div>
                     <div class="mb-3">
                         <input type="text" class="form-control" name="judul_ulang" id="judul_ulang" placeholder="Judul Ulang">
@@ -30,6 +60,7 @@
                         <label for="deskripsi_judul_ulang" class="form-label">Deskripsi Judul Ulang</label>
                         <textarea class="form-control" id="deskripsi_judul_ulang" rows="3" name="deskripsi_judul_ulang"></textarea>
                     </div>
+                    <input type="hidden" name="status" value="0">
                     <div class="mb-3">
                         <label for="tanggal_pengajuan_ulang">Tanggal Pengajuan Ulang</label>
                         <input type="date" class="form-control" name="tanggal_pengajuan_ulang" id="tanggal_pengajuan_ulang">

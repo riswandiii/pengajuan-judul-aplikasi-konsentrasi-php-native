@@ -78,7 +78,7 @@
           <div class="col-lg-8 offset-lg-2">
           <div class="card">
               <div class="card-header bg-primary">
-                <h3 class="text-white">Create Data Mahasiwa</h3>
+                <h3 class="text-white">Registrasi Mahasiswa</h3>
               </div>
               <div class="card-body">
                 <!-- Form Tambah Data Dosen -->

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 09, 2022 at 07:31 PM
+-- Generation Time: Jun 18, 2022 at 04:36 PM
 -- Server version: 10.4.22-MariaDB
 -- PHP Version: 8.1.2
 
@@ -79,6 +79,14 @@ CREATE TABLE `tb_judul` (
   `status` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `tb_judul`
+--
+
+INSERT INTO `tb_judul` (`id_judul`, `id_mahasiswa`, `judul`, `deskripsi_judul`, `tanggal_pengajuan`, `status`) VALUES
+(1, 3, 'Aplikasi Pemesanan Makanan', 'Untuk mempermudah pemesanan makanan', '2022-06-18', '2'),
+(2, 4, 'Aplikasi Penginputan Skripsi', 'mempermudah proses input judul skripsi', '2022-06-23', '0');
+
 -- --------------------------------------------------------
 
 --
@@ -97,7 +105,8 @@ CREATE TABLE `tb_jurusan` (
 INSERT INTO `tb_jurusan` (`id_jurusan`, `jurusan`) VALUES
 (1, 'Teknik Informatika'),
 (2, 'Sistem Informasi'),
-(6, 'Rekayasa Perangkat Lunak');
+(6, 'Rekayasa Perangkat Lunak'),
+(7, '');
 
 -- --------------------------------------------------------
 
@@ -157,11 +166,19 @@ INSERT INTO `tb_mahasiswa` (`id_mahasiswa`, `nama_mahasiswa`, `stb`, `id_jurusan
 CREATE TABLE `tb_pengajuan_ulang` (
   `id_pengajuan_ulang` int(11) NOT NULL,
   `id_revisi` int(11) NOT NULL,
+  `id_mahasiswa` int(11) NOT NULL,
   `judul_ulang` varchar(100) NOT NULL,
   `deskripsi_judul_ulang` varchar(100) NOT NULL,
   `tanggal_pengajuan_ulang` date NOT NULL,
   `status` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_pengajuan_ulang`
+--
+
+INSERT INTO `tb_pengajuan_ulang` (`id_pengajuan_ulang`, `id_revisi`, `id_mahasiswa`, `judul_ulang`, `deskripsi_judul_ulang`, `tanggal_pengajuan_ulang`, `status`) VALUES
+(2, 2, 3, 'Aplikasi penerima bantuan bansos', 'Memberikan informasi ke penerima bantuan', '2022-06-18', '0');
 
 -- --------------------------------------------------------
 
@@ -175,6 +192,13 @@ CREATE TABLE `tb_revisi_judul` (
   `id_dosen` int(11) NOT NULL,
   `revisi` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tb_revisi_judul`
+--
+
+INSERT INTO `tb_revisi_judul` (`id_revisi`, `id_judul`, `id_dosen`, `revisi`) VALUES
+(2, 1, 2, 'Revisi');
 
 --
 -- Indexes for dumped tables
@@ -225,7 +249,8 @@ ALTER TABLE `tb_mahasiswa`
 --
 ALTER TABLE `tb_pengajuan_ulang`
   ADD PRIMARY KEY (`id_pengajuan_ulang`),
-  ADD KEY `id_revisi` (`id_revisi`);
+  ADD KEY `id_revisi` (`id_revisi`),
+  ADD KEY `id_mahasiswa` (`id_mahasiswa`);
 
 --
 -- Indexes for table `tb_revisi_judul`
@@ -256,13 +281,13 @@ ALTER TABLE `tb_dosen`
 -- AUTO_INCREMENT for table `tb_judul`
 --
 ALTER TABLE `tb_judul`
-  MODIFY `id_judul` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_judul` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tb_jurusan`
 --
 ALTER TABLE `tb_jurusan`
-  MODIFY `id_jurusan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_jurusan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tb_kelas`
@@ -280,13 +305,13 @@ ALTER TABLE `tb_mahasiswa`
 -- AUTO_INCREMENT for table `tb_pengajuan_ulang`
 --
 ALTER TABLE `tb_pengajuan_ulang`
-  MODIFY `id_pengajuan_ulang` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_pengajuan_ulang` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tb_revisi_judul`
 --
 ALTER TABLE `tb_revisi_judul`
-  MODIFY `id_revisi` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_revisi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
@@ -315,7 +340,8 @@ ALTER TABLE `tb_mahasiswa`
 -- Constraints for table `tb_pengajuan_ulang`
 --
 ALTER TABLE `tb_pengajuan_ulang`
-  ADD CONSTRAINT `tb_pengajuan_ulang_ibfk_1` FOREIGN KEY (`id_revisi`) REFERENCES `tb_revisi_judul` (`id_revisi`);
+  ADD CONSTRAINT `tb_pengajuan_ulang_ibfk_1` FOREIGN KEY (`id_revisi`) REFERENCES `tb_revisi_judul` (`id_revisi`),
+  ADD CONSTRAINT `tb_pengajuan_ulang_ibfk_2` FOREIGN KEY (`id_mahasiswa`) REFERENCES `tb_mahasiswa` (`id_mahasiswa`);
 
 --
 -- Constraints for table `tb_revisi_judul`
